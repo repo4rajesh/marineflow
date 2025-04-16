@@ -6,118 +6,105 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
+const navigation = [
+  { name: 'Home', href: '/' },
+  { name: 'Features', href: '/features' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' }
+];
+
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
-      if (offset > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Features', href: '#features' },
-    { name: 'About', href: '#about' },
-    { name: 'Case Studies', href: '#case-studies' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-gray-900/90 backdrop-blur-md py-2' : 'bg-transparent py-4'
-      }`}
-    >
-      <div className="container mx-auto px-4">
+    <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-gray-900/95 backdrop-blur-sm' : 'bg-transparent'}`}>
+      <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative h-[70px] w-[360px] flex items-center">
+          <Link href="/" className="flex-shrink-0">
             <Image
-              src="/images/marineflow-logo-themed.svg"
-              alt="MarineFlow AI"
-              fill
-              className="object-contain"
-              priority
+              src="/images/marineflow-logo-white.svg"
+              alt="MarineFlow.ai"
+              width={180}
+              height={40}
+              className="h-10 w-auto"
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
+          <div className="hidden md:flex md:gap-x-8">
+            {navigation.map((item) => (
               <Link
-                key={link.name}
-                href={link.href}
-                className="text-gray-300 hover:text-blue-400 transition-colors"
+                key={item.name}
+                href={item.href}
+                className="text-base font-medium text-gray-300 hover:text-white transition-colors"
               >
-                {link.name}
+                {item.name}
               </Link>
             ))}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-white transition-all transform hover:shadow-lg hover:shadow-blue-500/20"
+            <Link
+              href="/contact"
+              className="px-4 py-2 text-base font-medium text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition-colors"
             >
               Get Started
-            </motion.button>
+            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-300 hover:text-white"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </button>
+          {/* Mobile menu button */}
+          <div className="flex md:hidden">
+            <button
+              type="button"
+              className="text-gray-300 hover:text-white"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <span className="sr-only">Open main menu</span>
+              {mobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              )}
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <motion.div
+        {/* Mobile menu */}
+        <motion.div 
+          className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'}`}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="md:hidden bg-gray-900/95 backdrop-blur-md"
+          transition={{ duration: 0.2 }}
         >
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-300 hover:text-blue-400 transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold text-white transition-all transform hover:shadow-lg hover:shadow-blue-500/20 mt-2"
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
-                Get Started
-              </motion.button>
-            </div>
+                {item.name}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              className="block px-3 py-2 text-base font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Get Started
+            </Link>
           </div>
         </motion.div>
-      )}
-    </nav>
+      </nav>
+    </header>
   );
 } 
