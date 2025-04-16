@@ -39,11 +39,11 @@ export default function Navbar() {
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">MarineFlow AI</span>
             <Image
-              className="h-8 w-auto"
+              className="h-12 w-auto"
               src="/images/marineflow-logo-blue.svg"
               alt="MarineFlow AI"
-              width={180}
-              height={32}
+              width={252}
+              height={46}
               priority
             />
           </Link>
@@ -90,11 +90,11 @@ export default function Navbar() {
             <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">MarineFlow AI</span>
               <Image
-                className="h-8 w-auto"
+                className="h-12 w-auto"
                 src="/images/marineflow-logo-blue.svg"
                 alt="MarineFlow AI"
-                width={180}
-                height={32}
+                width={252}
+                height={46}
               />
             </Link>
             <button
