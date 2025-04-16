@@ -1,8 +1,14 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { 
+  ChartBarIcon, 
+  CpuChipIcon, 
+  DocumentCheckIcon, 
+  GlobeAltIcon 
+} from '@heroicons/react/24/outline';
 
 /* Commented out for future use
 const teamMembers = [
@@ -54,178 +60,110 @@ const teamMembers = [
 ];
 */
 
-const advantages = [
+const benefits = [
   {
-    title: "Maritime Expertise",
-    description: "Co-founder's 20 years of maritime industry experience along with extensive network in the maritime sector."
+    title: 'Enhanced Efficiency',
+    description: 'Streamline operations and reduce manual tasks with AI-powered automation.',
+    icon: ChartBarIcon,
   },
   {
-    title: "Specialized Team",
-    description: "Inhouse Laytime and Maritime Analyst and operators team with deep industry knowledge."
+    title: 'Intelligent Insights',
+    description: 'Make data-driven decisions with advanced analytics and predictive modeling.',
+    icon: CpuChipIcon,
   },
   {
-    title: "Proven Track Record",
-    description: "Founding team members as serial Entrepreneurs built 7 figure ARR business with successful exits."
+    title: 'Improved Compliance',
+    description: 'Stay ahead of regulatory requirements with automated compliance monitoring.',
+    icon: DocumentCheckIcon,
   },
   {
-    title: "Technical Excellence",
-    description: "Built AI and SaaS solutions that scaled to multi-million dollar businesses, serving Fortune 500 clients."
+    title: 'Global Connectivity',
+    description: 'Connect with maritime partners worldwide through our integrated platform.',
+    icon: GlobeAltIcon,
   },
-  {
-    title: "Global Presence",
-    description: "Co-located in-house team with global presence in USA, Mumbai, Singapore, and Indore for maritime and IT operations."
-  }
 ];
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-gray-900">
-      <div className="container mx-auto px-4">
-        {/* Problem Statement */}
-        <div className="mb-24">
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+    <section className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-30"></div>
+      
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            className="relative"
           >
-            The Problem We're Solving
-          </motion.h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <p className="text-xl text-gray-400 mb-6">
-                Manual laytime and demurrage calculations in the maritime industry are error-prone, leading to frequent disputes and financial losses globally.
-              </p>
-              <ul className="space-y-4 text-gray-400">
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>40% of maritime companies struggle with inefficient laytime calculations, leading to operational delays</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>$4 billion in demurrage and detention costs are incurred every year due to miscalculations and delays</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Manual processing of laytime claims takes an average of 4-5 days—often causing disputes and financial risks</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">•</span>
-                  <span>Fragmented Documentation (SoF, recaps, Contracts etc.) slows decision making and increases error rates</span>
-                </li>
-              </ul>
-            </motion.div>
-            <motion.div
-              className="relative h-[400px]"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
+            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-3xl blur-xl opacity-20 animate-pulse"></div>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-gray-200">
               <Image
                 src="/images/about-3d.svg"
-                alt="Maritime Industry Challenges"
-                fill
-                className="object-contain"
+                alt="MarineFlow AI Solutions"
+                width={600}
+                height={400}
+                className="w-full h-auto"
+                priority
               />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Solution Overview */}
-        <div className="mb-24">
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-8 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Solution
-          </motion.h2>
-          <motion.div
-            className="text-xl text-gray-400 text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <p>
-              MarineFlow.ai is a cutting-edge AI-Powered SaaS platform, seamlessly integrating thousands of trained SoF, Recap, load/discharge port data, and all NOR clauses—delivering unmatched accuracy and efficiency in laytime automation.
-            </p>
+            </div>
+            <div className="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-lg p-3 flex items-center gap-2">
+              <div className="h-3 w-3 rounded-full bg-green-500"></div>
+              <span className="text-sm font-medium text-gray-700">Global Solutions</span>
+            </div>
           </motion.div>
-        </div>
-
-        {/* Unfair Advantages */}
-        <div>
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Unfair Advantages
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {advantages.map((advantage, index) => (
-              <motion.div
-                key={advantage.title}
-                className="p-6 bg-gray-800/50 rounded-xl border border-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <h3 className="text-xl font-semibold text-white mb-3">{advantage.title}</h3>
-                <p className="text-gray-400">{advantage.description}</p>
-              </motion.div>
-            ))}
+          
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block"
+            >
+              <span className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-sm font-medium text-blue-600 ring-1 ring-inset ring-blue-600/20">
+                Our Solutions
+              </span>
+            </motion.div>
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="mt-6 text-3xl font-bold tracking-tight text-gradient sm:text-4xl"
+            >
+              Comprehensive Maritime Solutions
+            </motion.h2>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mt-6 text-lg leading-8 text-gray-600"
+            >
+              MarineFlow AI provides end-to-end solutions for maritime operations, from vessel tracking to document management. Our platform is designed to streamline workflows, enhance decision-making, and drive operational excellence.
+            </motion.p>
+            
+            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={benefit.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                  className="flex gap-x-3"
+                >
+                  <div className="h-10 w-10 flex items-center justify-center rounded-lg bg-blue-50">
+                    <benefit.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">{benefit.title}</h3>
+                    <p className="mt-1 text-gray-600">{benefit.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
-
-        {/* Leadership Team Section - Commented out for future use
-        <div>
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Our Leadership Team
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                className="p-6 bg-gray-800/50 rounded-xl border border-gray-700 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="relative w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{member.name}</h3>
-                <p className="text-gray-400">{member.role}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        */}
       </div>
     </section>
   );

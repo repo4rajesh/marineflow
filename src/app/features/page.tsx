@@ -10,8 +10,15 @@ import {
   DocumentTextIcon,
   ArrowPathIcon,
   UserGroupIcon,
-  ComputerDesktopIcon
+  ComputerDesktopIcon,
+  ClockIcon,
+  TruckIcon,
+  ChartPieIcon,
+  DocumentDuplicateIcon,
+  ClockIcon as ClockIcon2,
+  TruckIcon as TruckIcon2
 } from '@heroicons/react/24/outline';
+import Footer from '@/components/Footer';
 
 const roadmapFeatures = [
   {
@@ -49,29 +56,29 @@ const roadmapFeatures = [
     description: "Smart Freight Calculator, route optimization, Laytime Compare, and Predictive Analytics for demurrage.",
     icon: ChartBarIcon,
     details: [
-      "Smart Freight Calculator with route optimization",
-      "Advanced Laytime Compare functionality",
-      "Predictive Analytics for demurrage prevention"
+      "Advanced freight calculation algorithms",
+      "AI-powered route optimization",
+      "Predictive analytics for demurrage"
     ]
   },
   {
-    title: "Strategic Trade & Risk Management",
-    description: "Integrated tools for informed oil/ship trading and hedging decisions.",
+    title: "Advanced Security & Compliance",
+    description: "Enterprise-grade security with end-to-end encryption and compliance with maritime regulations.",
     icon: ShieldCheckIcon,
     details: [
-      "Advanced risk assessment tools",
-      "Market analysis and trading insights",
-      "Automated hedging recommendations"
+      "End-to-end encryption",
+      "Role-based access control",
+      "Compliance monitoring and reporting"
     ]
   },
   {
-    title: "Automated Contract Handling",
-    description: "Efficient Contract Automation for charter parties with Maker/Checker workflow and Email Draft functionality.",
+    title: "Document Management System",
+    description: "Comprehensive document handling with version control and automated processing.",
     icon: DocumentTextIcon,
     details: [
-      "Smart contract automation system",
-      "Maker/Checker workflow implementation",
-      "Automated email draft generation"
+      "Automated document processing",
+      "Version control and tracking",
+      "Smart document search and retrieval"
     ]
   }
 ];
@@ -101,106 +108,119 @@ const integrationFeatures = [
 
 export default function FeaturesPage() {
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Header Section */}
-      <div className="pt-32 pb-16 bg-gradient-to-b from-gray-800 to-gray-900">
-        <div className="container mx-auto px-4">
-          <motion.h1 
-            className="text-5xl font-bold text-white text-center mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Product Features & Roadmap
-          </motion.h1>
-          <motion.p 
-            className="text-xl text-gray-400 text-center max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            Discover our comprehensive suite of features and upcoming developments designed to revolutionize maritime operations.
-          </motion.p>
-        </div>
-      </div>
-
-      {/* Future Roadmap Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Future Roadmap
-          </motion.h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {roadmapFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                className="p-8 bg-gray-800/50 rounded-xl border border-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-blue-500/10 rounded-lg p-2 flex-shrink-0">
-                    <feature.icon className="w-8 h-8 text-blue-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">{feature.title}</h3>
-                    <p className="text-gray-400 mb-6">{feature.description}</p>
-                    <ul className="space-y-2">
-                      {feature.details.map((detail, i) => (
-                        <li key={i} className="flex items-start text-gray-400">
-                          <span className="mr-2">•</span>
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+    <>
+      <main className="bg-gradient-light min-h-screen">
+        {/* Hero Section */}
+        <section className="pt-32 pb-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <h1 className="text-4xl font-bold tracking-tight text-gradient sm:text-5xl">
+                Features & Roadmap
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+                Discover how MarineFlow AI's comprehensive suite of features can transform your maritime operations.
+              </p>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Integration Features Section */}
-      <section className="py-24 bg-gray-800/30">
-        <div className="container mx-auto px-4">
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-16 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Integration & Support
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {integrationFeatures.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                className="p-6 bg-gray-800/50 rounded-xl border border-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div className="w-12 h-12 bg-blue-500/10 rounded-lg p-2 mb-4">
-                  <feature.icon className="w-8 h-8 text-blue-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
-              </motion.div>
-            ))}
+        {/* Features Grid */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {roadmapFeatures.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm ring-1 ring-blue-100 card-hover"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-blue-50 rounded-lg">
+                      <feature.icon className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gradient">{feature.title}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-4">{feature.description}</p>
+                  <ul className="space-y-2">
+                    {feature.details.map((detail, i) => (
+                      <li key={i} className="flex items-center gap-2 text-sm text-gray-600">
+                        <div className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+
+        {/* Coming Soon Section */}
+        <section className="py-16 bg-white/50 backdrop-blur-sm">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-base font-semibold leading-7 text-blue-600">Coming Soon</h2>
+              <p className="mt-2 text-3xl font-bold tracking-tight text-gradient sm:text-4xl">
+                Future Innovations
+              </p>
+              <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+                We're constantly working on new features to enhance your maritime operations.
+              </p>
+            </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm ring-1 ring-blue-100 card-hover"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <ComputerDesktopIcon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gradient">AI-Powered Analytics</h3>
+                </div>
+                <p className="text-gray-600">
+                  Advanced analytics and predictive modeling for better decision-making and operational efficiency.
+                </p>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-sm ring-1 ring-blue-100 card-hover"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <UserGroupIcon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gradient">Collaborative Workspace</h3>
+                </div>
+                <p className="text-gray-600">
+                  Enhanced team collaboration features with real-time updates and shared workspaces.
+                </p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 } 

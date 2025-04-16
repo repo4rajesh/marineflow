@@ -18,12 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} bg-gradient-to-b from-gray-900 to-black text-white min-h-screen`}>
-        <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
-        <div className="relative">
-          <Navbar />
-          {children}
-        </div>
+      <body className={`${inter.className} bg-white text-gray-900 min-h-screen overflow-x-hidden`}>
+        <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center opacity-10 [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
+        <Navbar />
+        {children}
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
@@ -8,77 +9,172 @@ import {
   DocumentTextIcon,
   UserIcon,
   ShieldCheckIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  TruckIcon,
+  CogIcon,
+  DocumentChartBarIcon,
+  CloudArrowUpIcon,
+  LockClosedIcon,
+  ArrowPathIcon,
+  BoltIcon,
+  BeakerIcon,
+  BuildingOfficeIcon,
+  UserGroupIcon,
+  ScaleIcon,
+  BuildingLibraryIcon,
+  GlobeAltIcon,
+  CpuChipIcon,
+  DocumentCheckIcon,
+  EnvelopeIcon,
+  ChartPieIcon,
 } from '@heroicons/react/24/outline';
 
 const features = [
   {
-    name: 'Automated Laytime Calculations',
-    description: 'Reduce manual errors and save time with our AI-powered calculations.',
+    title: 'AI-Powered Laytime Calculation',
+    description: 'Simplify laytime calculations with intelligent automation. Process digitized SoF, Recap, and Addendum documents seamlessly. Compare documents side by side with original versions for unmatched accuracy.',
     icon: ClockIcon,
   },
   {
-    name: 'Real-Time Data Analysis',
-    description: 'Stay ahead with up-to-date insights and comprehensive data analytics.',
+    title: 'Real-Time Dashboard, Analytics, and Reporting',
+    description: 'Access critical operational data instantly on an intuitive dashboard. Gain actionable insights with real-time analytics. Generate comprehensive reports to make data-driven decisions.',
     icon: ChartBarIcon,
   },
   {
-    name: 'Customizable Reporting',
-    description: 'Get reports tailored to your needs, supporting thorough Auditing processes.',
-    icon: DocumentTextIcon,
+    title: 'Agentic AI Knowledge Base and Co-Pilot',
+    description: 'Tap into the power of AI to create a robust maritime knowledge base. Leverage the AI Co-Pilot for smart recommendations, task assistance, and workflow optimization. Ensure your team has access to accurate and timely information, always.',
+    icon: CpuChipIcon,
   },
   {
-    name: 'Compliance and Accuracy',
-    description: 'Ensure contract adherence with precision with RBAC.',
-    icon: ShieldCheckIcon,
+    title: 'AI-Powered Certificate Management System (CMS)',
+    description: 'Manage vessel certifications effortlessly. Automate certificate tracking, reminders, and compliance checks. Ensure no document expiry or compliance gap disrupts operations.',
+    icon: DocumentCheckIcon,
   },
   {
-    name: 'User-Friendly Interface',
-    description: 'Simple, intuitive, and easy to use platform for all users.',
-    icon: UserIcon,
-  }
+    title: 'Customizable Email Templates',
+    description: 'Save time with pre-defined, customizable email templates. Maintain consistency and professionalism in communications. Streamline email workflows for smoother collaboration.',
+    icon: EnvelopeIcon,
+  },
+  {
+    title: 'Predictive Analytics',
+    description: 'Stay ahead by anticipating operational needs and challenges. Predict vessel availability, port schedules, and cargo requirements with AI-powered insights. Make proactive decisions to optimize time and resources.',
+    icon: ChartPieIcon,
+  },
+];
+
+const targetMarket = [
+  {
+    title: 'Dry Bulk Operators',
+    description: 'Optimize cargo loading, vessel scheduling, and route planning for maximum efficiency.',
+    icon: TruckIcon,
+  },
+  {
+    title: 'Container Lines',
+    description: 'Enhance container tracking, terminal operations, and fleet management capabilities.',
+    icon: BuildingOfficeIcon,
+  },
+  {
+    title: 'Tanker Companies',
+    description: 'Improve safety, compliance, and operational efficiency for liquid cargo operations.',
+    icon: ChartBarIcon,
+  },
+  {
+    title: 'Port Authorities',
+    description: 'Streamline port operations, vessel traffic management, and resource allocation.',
+    icon: GlobeAltIcon,
+  },
+  {
+    title: 'Maritime Law Firms',
+    description: 'Access comprehensive maritime data and analytics to support legal proceedings.',
+    icon: ScaleIcon,
+  },
+  {
+    title: 'Ship Management Companies',
+    description: 'Optimize fleet management, crew scheduling, and maintenance planning.',
+    icon: UserGroupIcon,
+  },
 ];
 
 export default function Features() {
   return (
-    <section id="features" className="py-24 bg-gray-900">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section className="py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-30"></div>
+      
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
           <motion.h2 
-            className="text-4xl font-bold text-white mb-4"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
+            className="text-3xl font-bold tracking-tight text-gradient sm:text-4xl"
           >
-            Why Choose Us?
+            Powerful Features for Maritime Excellence
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 text-lg leading-8 text-gray-600"
           >
-            Our AI-driven solutions streamline the entire process, ensuring precision, efficiency, and compliance.
+            MarineFlow AI provides a comprehensive suite of tools designed specifically for the maritime industry.
           </motion.p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {features.map((feature, index) => (
             <motion.div
-              key={feature.name}
-              className="p-6 bg-gray-800/50 rounded-xl border border-gray-700 hover:border-blue-500/50 transition-colors"
+              key={feature.title}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition-shadow duration-200"
             >
-              <div className="w-12 h-12 bg-blue-500/10 rounded-lg p-2 mb-4">
-                <feature.icon className="w-8 h-8 text-blue-400" />
+              <div className="flex items-center gap-x-4">
+                <div className="rounded-lg bg-blue-50 p-2">
+                  <feature.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
+                </div>
+                <h3 className="text-lg font-semibold leading-7 text-gray-900">{feature.title}</h3>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">{feature.name}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="mt-4 text-base leading-7 text-gray-600">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
+        
+        <div className="mx-auto mt-24 max-w-2xl text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold tracking-tight text-gradient sm:text-4xl"
+          >
+            Designed for the Maritime Industry
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-6 text-lg leading-8 text-gray-600"
+          >
+            MarineFlow AI serves a wide range of maritime stakeholders with specialized solutions.
+          </motion.p>
+        </div>
+        
+        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {targetMarket.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative rounded-2xl bg-gradient-light p-8 shadow-sm ring-1 ring-gray-200 hover:shadow-md transition-shadow duration-200"
+            >
+              <div className="flex items-center gap-x-4">
+                <div className="rounded-lg bg-blue-50 p-2">
+                  <item.icon className="h-6 w-6 text-blue-600" aria-hidden="true" />
+                </div>
+                <h3 className="text-lg font-semibold leading-7 text-gray-900">{item.title}</h3>
+              </div>
+              <p className="mt-4 text-base leading-7 text-gray-600">{item.description}</p>
             </motion.div>
           ))}
         </div>
@@ -91,67 +187,23 @@ export default function Features() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <Link 
-            href="/features" 
-            className="inline-flex items-center gap-2 text-lg font-semibold text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            View Full Feature List & Roadmap
-            <ArrowRightIcon className="w-5 h-5" />
-          </Link>
-        </motion.div>
-
-        {/* Target Market Section */}
-        <div className="mt-32">
-          <motion.h2 
-            className="text-4xl font-bold text-white mb-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Who Can Benefit?
-          </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Dry Bulk Operators',
-                desc: 'Bulk carriers transporting commodities like coal, grain, iron ore, and fertilizers.'
-              },
-              {
-                title: 'Oil and Gas Tanker Operators',
-                desc: 'Tankers transporting crude oil, refined petroleum products, and gas. Need accurate NOR handling and AI-based demurrage mitigation.'
-              },
-              {
-                title: 'Shipowners and Charterers',
-                desc: 'Entities responsible for leasing vessels under time, voyage, or bareboat charters. Require real-time laytime tracking.'
-              },
-              {
-                title: 'Brokers & Traders',
-                desc: 'Cargo brokers, commodity traders, and shipping logistics firms managing global shipments. Require AI-driven invoice generation.'
-              },
-              {
-                title: 'Maritime Agencies',
-                desc: 'Port authorities and terminal operators dealing with vessel turnaround times and port operations.'
-              },
-              {
-                title: 'Maritime Law Firms',
-                desc: 'Legal professionals handling maritime contracts, dispute resolution, and compliance matters.'
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={item.title}
-                className="p-6 bg-gray-800/50 rounded-xl border border-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <h4 className="text-xl font-semibold text-white mb-2">{item.title}</h4>
-                <p className="text-gray-400">{item.desc}</p>
-              </motion.div>
-            ))}
+          <div className="flex flex-col items-center gap-4">
+            <Link 
+              href="/features" 
+              className="inline-flex items-center gap-2 text-lg font-semibold text-blue-600 hover:text-blue-500 transition-colors"
+            >
+              View Full Feature List & Roadmap
+              <ArrowRightIcon className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200"
+            >
+              Book a demo
+              <ArrowRightIcon className="w-5 h-5" />
+            </Link>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

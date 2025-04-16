@@ -3,9 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 17, 24, 39;
-  --background-end-rgb: 0, 0, 0;
+  --foreground-rgb: 51, 65, 85;
+  --background-start-rgb: 248, 250, 252;
+  --background-end-rgb: 241, 245, 249;
+  --primary-blue: 59, 130, 246;
+  --light-blue: 191, 219, 254;
+  --accent-blue: 37, 99, 235;
+  --muted-blue: 226, 232, 240;
 }
 
 body {
@@ -18,31 +22,47 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400;
+  }
+  
+  .bg-gradient-light {
+    @apply bg-gradient-to-br from-blue-50 to-indigo-50;
+  }
+  
+  .bg-gradient-accent {
+    @apply bg-gradient-to-r from-blue-500 to-blue-600;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-200;
+  }
+  
+  .section-padding {
+    @apply py-16 sm:py-24;
   }
 }
 
-/* Modern scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgb(var(--muted-blue));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(var(--light-blue));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: rgb(var(--primary-blue));
 }
 
 /* Gradient text animation */
-@keyframes gradient {
+@keyframes gradient-text {
   0% {
     background-position: 0% 50%;
   }
@@ -54,7 +74,7 @@ body {
   }
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient 8s ease infinite;
+.animate-gradient-text {
+  background-size: 200% auto;
+  animation: gradient-text 3s ease infinite;
 } 

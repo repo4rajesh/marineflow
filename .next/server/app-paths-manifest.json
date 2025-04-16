@@ -1,8 +1,8 @@
 {
   "/page": "app/page.js",
-  "/privacy/page": "app/privacy/page.js",
-  "/terms/page": "app/terms/page.js",
   "/about/page": "app/about/page.js",
-  "/features/page": "app/features/page.js",
-  "/contact/page": "app/contact/page.js"
+  "/why-marineflow/page": "app/why-marineflow/page.js",
+  "/solutions/page": "app/solutions/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/features/page": "app/features/page.js"
 }
