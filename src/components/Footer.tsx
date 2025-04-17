@@ -15,7 +15,6 @@ const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Why MarineFlow AI', href: '/why-marineflow' },
   { name: 'Solutions', href: '/solutions' },
-  { name: 'Features', href: '/features' },
 ];
 
 const socialLinks = [

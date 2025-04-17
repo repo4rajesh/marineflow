@@ -188,13 +188,6 @@ export default function Features() {
           transition={{ duration: 0.5 }}
         >
           <div className="flex flex-col items-center gap-4">
-            <Link 
-              href="/features" 
-              className="inline-flex items-center gap-2 text-lg font-semibold text-blue-600 hover:text-blue-500 transition-colors"
-            >
-              View Full Feature List & Roadmap
-              <ArrowRightIcon className="w-5 h-5" />
-            </Link>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-gradient-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200"
