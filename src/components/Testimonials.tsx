@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const testimonials = [
   {
@@ -81,49 +80,15 @@ export default function Testimonials() {
     }
   };
 
-  // Function to scroll left
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const cardWidth = 316; // 300px width + 16px spacing
-      
-      // Calculate previous index in a circular pattern
-      const prevIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
-      setCurrentIndex(prevIndex);
-      
-      // Calculate the scroll position for the previous testimonial
-      const newPosition = prevIndex * cardWidth;
-      
-      // Scroll to the new position
-      container.scrollTo({ left: newPosition, behavior: 'smooth' });
-    }
+  // Handle mouse enter/leave
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    stopAutoScroll();
   };
 
-  // Function to scroll right
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const cardWidth = 316; // 300px width + 16px spacing
-      
-      // Calculate next index in a circular pattern
-      const nextIndex = (currentIndex + 1) % testimonials.length;
-      setCurrentIndex(nextIndex);
-      
-      // Calculate the scroll position for the next testimonial
-      const newPosition = nextIndex * cardWidth;
-      
-      // Scroll to the new position
-      container.scrollTo({ left: newPosition, behavior: 'smooth' });
-    }
-  };
-
-  // Handle keyboard navigation
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') {
-      scrollLeft();
-    } else if (e.key === 'ArrowRight') {
-      scrollRight();
-    }
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    startAutoScroll();
   };
 
   // Start auto-scroll on mount
@@ -137,29 +102,14 @@ export default function Testimonials() {
       container.addEventListener('scroll', handleScroll);
     }
     
-    // Add keyboard event listener
-    window.addEventListener('keydown', handleKeyDown);
-    
     return () => {
       // Clean up on unmount
       stopAutoScroll();
       if (container) {
         container.removeEventListener('scroll', handleScroll);
       }
-      window.removeEventListener('keydown', handleKeyDown);
     };
   }, [currentIndex]); // Re-run when currentIndex changes
-
-  // Handle mouse enter/leave
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-    stopAutoScroll();
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovering(false);
-    startAutoScroll();
-  };
 
   return (
     <section id="testimonials" className="relative py-12 overflow-hidden">
@@ -193,18 +143,9 @@ export default function Testimonials() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Left navigation arrow */}
-            <button 
-              onClick={scrollLeft}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-shadow duration-300"
-              aria-label="Scroll left"
-            >
-              <ChevronLeftIcon className="h-6 w-6 text-blue-600" />
-            </button>
-            
             <div 
               ref={scrollContainerRef}
-              className="overflow-x-auto pb-4 scrollbar-hide px-16"
+              className="overflow-x-auto pb-4 scrollbar-hide"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <div className="flex space-x-4 min-w-max">
@@ -232,15 +173,6 @@ export default function Testimonials() {
                 ))}
               </div>
             </div>
-            
-            {/* Right navigation arrow */}
-            <button 
-              onClick={scrollRight}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-2 shadow-md hover:shadow-lg transition-shadow duration-300"
-              aria-label="Scroll right"
-            >
-              <ChevronRightIcon className="h-6 w-6 text-blue-600" />
-            </button>
           </div>
           
           {/* Navigation dots */}
