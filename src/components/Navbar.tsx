@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon, ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon as ArrowRightIconSolidFilled } from '@heroicons/react/24/solid';
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -16,6 +17,7 @@ const navigation = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,12 +71,48 @@ export default function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link
-            href="/contact"
-            className="rounded-full bg-gradient-accent px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-200"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
+            className="relative"
           >
-            Book a demo
-          </Link>
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-300 overflow-hidden relative"
+            >
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600"
+                animate={{
+                  backgroundPosition: isHovered ? ['0% 50%', '100% 50%', '0% 50%'] : '0% 50%'
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: isHovered ? Infinity : 0,
+                  ease: "linear"
+                }}
+                style={{
+                  backgroundSize: '200% 100%'
+                }}
+              />
+              <span className="relative z-10">Book a demo</span>
+              <motion.div
+                className="relative z-10"
+                animate={{ x: isHovered ? 5 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
+              >
+                <ArrowRightIconSolidFilled className="h-4 w-4" />
+              </motion.div>
+            </Link>
+            <motion.div 
+              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs text-blue-600 font-medium bg-white px-2 py-1 rounded shadow-sm"
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 5 }}
+              transition={{ duration: 0.2 }}
+            >
+            </motion.div>
+          </motion.div>
         </div>
       </nav>
       <motion.div
@@ -122,10 +160,11 @@ export default function Navbar() {
               <div className="py-6">
                 <Link
                   href="/contact"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  className="group -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 inline-flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Book a demo
+                  <ArrowRightIconSolidFilled className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
             </div>

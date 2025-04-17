@@ -7,7 +7,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const testimonials = [
   {
     content: "MarineFlow AI's innovative approach to maritime operations has transformed how we handle vessel management and compliance. Their AI-powered solutions have significantly improved our efficiency.",
-    author: "Capt Ram",
+    author: "Captain Ram",
     role: "Maritime Strategist"
   },
   {
