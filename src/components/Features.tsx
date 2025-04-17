@@ -180,7 +180,7 @@ export default function Features() {
         </div>
 
         {/* Link to Features Page */}
-        <motion.div 
+        {/* <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -196,7 +196,7 @@ export default function Features() {
               <ArrowRightIcon className="w-5 h-5" />
             </Link>
           </div>
-        </motion.div>
+        </motion.div> */}
       </div>
     </section>
   );
