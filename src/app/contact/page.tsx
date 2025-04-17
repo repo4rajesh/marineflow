@@ -43,7 +43,7 @@ const CONTACT_EMAIL = 'contactmarineflow@gmail.com';
 // 1. Get test keys from https://www.google.com/recaptcha/admin
 // 2. Add 'localhost' and '127.0.0.1' to your domains in the reCAPTCHA admin console
 // 3. Use the test keys below (replace with your actual test keys)
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // This is Google's test key
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export default function ContactPage() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -82,11 +82,12 @@ export default function ContactPage() {
           type: 'error',
           message: 'Please complete the reCAPTCHA verification'
         });
+        setIsSubmitting(false);
         return;
       }
 
       // Using FormSubmit service to handle form submission
-      const response = await fetch('https://formsubmit.co/contactmarineflow@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/contactmarineflow@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -108,7 +109,6 @@ export default function ContactPage() {
           type: 'success',
           message: `Message sent successfully! We will get back to you at ${formData.email} soon.`
         });
-        
         // Reset form
         setFormData({
           name: '',
@@ -118,17 +118,16 @@ export default function ContactPage() {
           subject: '',
           message: ''
         });
-        
         // Reset reCAPTCHA
         recaptchaRef.current?.reset();
       } else {
-        throw new Error('Form submission failed');
+        throw new Error('Failed to send message');
       }
-      
     } catch (error) {
+      console.error('Error submitting form:', error);
       setSubmitStatus({
         type: 'error',
-        message: 'Failed to send message. Please try again later or email us directly at ' + CONTACT_EMAIL
+        message: 'There was an error sending your message. Please try again later.'
       });
     } finally {
       setIsSubmitting(false);
@@ -307,7 +306,7 @@ export default function ContactPage() {
                 <div className="flex justify-center">
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY}
+                    sitekey={RECAPTCHA_SITE_KEY || ''}
                     className="mx-auto"
                   />
                 </div>
