@@ -43,7 +43,12 @@ const CONTACT_EMAIL = 'contactmarineflow@gmail.com';
 // 1. Get test keys from https://www.google.com/recaptcha/admin
 // 2. Add 'localhost' and '127.0.0.1' to your domains in the reCAPTCHA admin console
 // 3. Use the test keys below (replace with your actual test keys)
-const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
+
+// Debug: Log the site key to check if it's being loaded correctly
+console.log('reCAPTCHA Site Key:', RECAPTCHA_SITE_KEY);
+console.log('Environment variable:', process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY);
+console.log('Current domain:', typeof window !== 'undefined' ? window.location.hostname : 'server-side');
 
 export default function ContactPage() {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -76,6 +81,7 @@ export default function ContactPage() {
 
     try {
       const recaptchaValue = recaptchaRef.current?.getValue();
+      console.log('reCAPTCHA value:', recaptchaValue ? 'Present' : 'Missing');
       
       if (!recaptchaValue) {
         setSubmitStatus({
@@ -87,6 +93,7 @@ export default function ContactPage() {
       }
 
       // Using FormSubmit service to handle form submission
+      console.log('Submitting form to FormSubmit...');
       const response = await fetch('https://formsubmit.co/ajax/contactmarineflow@gmail.com', {
         method: 'POST',
         headers: {
@@ -104,7 +111,12 @@ export default function ContactPage() {
         })
       });
       
+      console.log('FormSubmit response status:', response.status);
+      
       if (response.ok) {
+        const responseData = await response.json();
+        console.log('FormSubmit response data:', responseData);
+        
         setSubmitStatus({
           type: 'success',
           message: `Message sent successfully! We will get back to you at ${formData.email} soon.`
@@ -121,6 +133,8 @@ export default function ContactPage() {
         // Reset reCAPTCHA
         recaptchaRef.current?.reset();
       } else {
+        const errorText = await response.text();
+        console.error('FormSubmit error response:', errorText);
         throw new Error('Failed to send message');
       }
     } catch (error) {
@@ -306,8 +320,18 @@ export default function ContactPage() {
                 <div className="flex justify-center">
                   <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY || ''}
+                    sitekey={RECAPTCHA_SITE_KEY}
                     className="mx-auto"
+                    onErrored={() => {
+                      console.error('reCAPTCHA error occurred');
+                      setSubmitStatus({
+                        type: 'error',
+                        message: 'There was an error with the reCAPTCHA verification. Please try again later.'
+                      });
+                    }}
+                    onExpired={() => {
+                      console.log('reCAPTCHA expired');
+                    }}
                   />
                 </div>
 
