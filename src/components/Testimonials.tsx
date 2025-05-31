@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const testimonials = [
   {
-    content: "MarineFlow AI's innovative approach to maritime operations has transformed how we handle vessel management and compliance. Their AI-powered solutions have significantly improved our efficiency.",
+    content: "MarineFlow AI's innovative approach has transformed how we handle laytime calculations. This AI-powered solutions have significantly improved efficiency.",
     author: "Captain Ram",
     role: "Maritime Strategist"
   },

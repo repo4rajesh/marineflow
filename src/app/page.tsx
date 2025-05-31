@@ -9,7 +9,7 @@ import Hero from '@/components/Hero';
 import Features from '@/components/Features';
 import About from '@/components/About';
 import Testimonials from '@/components/Testimonials';
-import CaseStudies from '@/components/CaseStudies';
+//import CaseStudies from '@/components/CaseStudies';
 import Stats from '@/components/Stats';
 import Navbar from '@/components/Navbar';
 
@@ -124,7 +124,7 @@ export default function Home() {
         </div>
       </section>
       <Testimonials />
-      <CaseStudies />
+      {/*<CaseStudies />*/}
     </main>
   );
 } 
