@@ -12,6 +12,7 @@ import Testimonials from '@/components/Testimonials';
 //import CaseStudies from '@/components/CaseStudies';
 import Stats from '@/components/Stats';
 import Navbar from '@/components/Navbar';
+import BlogSection from '@/components/blog/BlogSection';
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Features />
+      <BlogSection />
       <About />
       <Stats />
       <section className="py-24 bg-gradient-light">
