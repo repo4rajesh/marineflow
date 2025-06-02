@@ -5,38 +5,23 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { CalendarIcon, UserIcon } from '@heroicons/react/24/outline';
 
-const featuredPosts = [
-  {
-    title: 'The Future of Maritime Technology',
-    excerpt: 'Exploring how AI is transforming the maritime industry with advanced automation, predictive analytics, and intelligent decision-making systems.',
-    image: '/blog/maritime-tech.jpg',
-    date: 'March 20, 2024',
-    author: 'John Doe',
-    slug: 'future-of-maritime-technology',
-    category: 'Technology'
-  },
-  {
-    title: 'Optimizing Port Operations with AI',
-    excerpt: 'Discover how artificial intelligence is revolutionizing port operations, reducing wait times, and improving overall efficiency in maritime logistics.',
-    image: '/blog/port-operations.jpg',
-    date: 'March 18, 2024',
-    author: 'Jane Smith',
-    slug: 'optimizing-port-operations',
-    category: 'Operations'
-  },
-  {
-    title: 'Sustainable Shipping Practices',
-    excerpt: 'Learn about the latest sustainable practices in maritime shipping and how technology is helping reduce environmental impact.',
-    image: '/blog/sustainable-shipping.jpg',
-    date: 'March 15, 2024',
-    author: 'Mike Johnson',
-    slug: 'sustainable-shipping-practices',
-    category: 'Sustainability'
-  }
-];
+interface Post {
+  id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  publishedAt: string;
+  author: {
+    name: string;
+  };
+  slug: string;
+  category: {
+    name: string;
+  };
+}
 
 export default function BlogSection() {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,7 +29,7 @@ export default function BlogSection() {
       try {
         const response = await fetch('/api/blog');
         const data = await response.json();
-        setPosts(data);
+        setPosts(data.slice(0, 3)); // Get only the first 3 posts for the featured section
       } catch (error) {
         console.error('Error fetching posts:', error);
       } finally {
@@ -54,6 +39,18 @@ export default function BlogSection() {
 
     fetchPosts();
   }, []);
+
+  if (loading) {
+    return (
+      <section className="py-20 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-20 relative overflow-hidden bg-gradient-to-b from-gray-50 to-white">
@@ -80,9 +77,9 @@ export default function BlogSection() {
         </div>
         
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {featuredPosts.map((post, index) => (
+          {posts.map((post, index) => (
             <motion.div
-              key={post.slug}
+              key={post.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -98,7 +95,7 @@ export default function BlogSection() {
                 </div>
                 <div className="flex items-center gap-2 mb-3">
                   <span className="inline-flex items-center rounded-full bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700">
-                    {post.category}
+                    {post.category.name}
                   </span>
                 </div>
                 <h3 className="text-lg font-semibold leading-7 text-gray-900 mb-2">{post.title}</h3>
@@ -106,11 +103,15 @@ export default function BlogSection() {
                 <div className="mt-4 flex items-center gap-x-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
                     <CalendarIcon className="h-4 w-4" />
-                    <span>{post.date}</span>
+                    <span>{new Date(post.publishedAt).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <UserIcon className="h-4 w-4" />
-                    <span>{post.author}</span>
+                    <span>{post.author.name}</span>
                   </div>
                 </div>
               </Link>
