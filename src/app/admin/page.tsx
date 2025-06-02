@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Link from 'next/link';
 
 export default function AdminPage() {
   const { data: session, status } = useSession();
@@ -60,12 +61,12 @@ export default function AdminPage() {
                 Manage your blog posts, categories, and tags
               </p>
               <div className="mt-4">
-                <button
-                  type="button"
+                <Link
+                  href="/admin/blog"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
                 >
                   Manage Posts
-                </button>
+                </Link>
               </div>
             </div>
           </div>
