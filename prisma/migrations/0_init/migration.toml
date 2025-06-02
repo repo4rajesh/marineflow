@@ -1,0 +1,4 @@
+# This is an empty migration.
+
+migration_name = "0_init"
+checksum = "1234567890" 

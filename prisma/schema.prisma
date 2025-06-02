@@ -1,11 +1,11 @@
-datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
-}
-
 generator client {
   provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Account {
@@ -14,15 +14,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -39,14 +38,14 @@ model User {
   id            String    @id @default(cuid())
   name          String
   email         String    @unique
-  emailVerified DateTime?
-  password      String?
   image         String?
-  accounts      Account[]
-  sessions      Session[]
-  posts         Post[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  emailVerified DateTime?
+  password      String?
+  accounts      Account[]
+  posts         Post[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -61,18 +60,18 @@ model Post {
   id          String   @id @default(cuid())
   title       String
   slug        String   @unique
-  content     String   @db.Text
+  content     String
   excerpt     String
   image       String
   publishedAt DateTime @default(now())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  author      User     @relation(fields: [authorId], references: [id])
   authorId    String
-  category    Category @relation(fields: [categoryId], references: [id])
   categoryId  String
-  tags        Tag[]
   readingTime String   @default("5 min read")
+  author      User     @relation(fields: [authorId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
+  tags        Tag[]    @relation("PostToTag")
 }
 
 model Category {
@@ -86,5 +85,5 @@ model Tag {
   id    String @id @default(cuid())
   name  String @unique
   slug  String @unique
-  posts Post[]
-} 
+  posts Post[] @relation("PostToTag")
+}
