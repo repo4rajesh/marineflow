@@ -72,8 +72,13 @@ export default function BlogPage() {
     );
   }
 
-  const featuredPost = posts[0];
-  const regularPosts = posts.slice(1);
+  // Filter posts by selected category if one is selected
+  const filteredPosts = selectedCategory
+    ? posts.filter(post => post.category.name === selectedCategory)
+    : posts;
+
+  const featuredPost = filteredPosts[0];
+  const regularPosts = filteredPosts.slice(1);
 
   return (
     <main className="min-h-screen bg-white">
