@@ -2,12 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { CalendarIcon, UserIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
 
 interface Post {
   id: string;
   title: string;
   slug: string;
   excerpt: string;
+  content: string;
   image: string;
   createdAt: string;
   author: {
@@ -18,28 +21,26 @@ interface Post {
   };
 }
 
-export default function BlogList() {
+export default function BlogPage() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
-  const postsPerPage = 5;
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         console.log('Fetching posts for page:', currentPage);
-        const response = await fetch(`/api/blog?page=${currentPage}&limit=${postsPerPage}`);
+        const response = await fetch(`/api/blog?page=${currentPage}&limit=9`);
         if (!response.ok) {
           throw new Error('Failed to fetch posts');
         }
         const data = await response.json();
-        console.log('Received data:', data);
+        console.log('Received posts data:', data);
         setPosts(data.posts);
         setTotalPosts(data.total);
-        setTotalPages(Math.ceil(data.total / postsPerPage));
       } catch (err) {
         setError('Error loading posts');
         console.error('Error loading posts:', err);
@@ -61,144 +62,155 @@ export default function BlogList() {
     );
   }
 
-  return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-7xl sm:mx-auto">
-        <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10">
-          <div className="max-w-full mx-auto">
-            <div className="flex items-center space-x-5">
-              <div className="block pl-2 font-semibold text-xl text-gray-700">
-                <h2 className="leading-relaxed">Blog Posts</h2>
-              </div>
-            </div>
-
-            {error && (
-              <div className="mt-4 rounded-md bg-red-50 p-4">
-                <div className="flex">
-                  <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">{error}</h3>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="mt-8">
-              <div className="bg-white shadow overflow-hidden sm:rounded-md">
-                <ul className="divide-y divide-gray-200">
-                  {posts.map((post) => (
-                    <li key={post.id}>
-                      <Link href={`/blog/${post.slug}`} className="block hover:bg-gray-50">
-                        <div className="px-4 py-4 sm:px-6">
-                          <div className="flex items-center">
-                            {post.image && (
-                              <img
-                                src={post.image}
-                                alt={post.title}
-                                className="h-12 w-12 object-cover rounded"
-                              />
-                            )}
-                            <div className="ml-4">
-                              <h3 className="text-lg font-medium text-gray-900">
-                                {post.title}
-                              </h3>
-                              <p className="text-sm text-gray-500">
-                                {post.excerpt}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="mt-2 sm:flex sm:justify-between">
-                            <div className="sm:flex">
-                              <p className="flex items-center text-sm text-gray-500">
-                                {post.author.name}
-                              </p>
-                              <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                                {post.category.name}
-                              </p>
-                            </div>
-                            <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                              {new Date(post.createdAt).toLocaleDateString()}
-                            </div>
-                          </div>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Pagination */}
-            {totalPosts > 0 && (
-              <div className="mt-4 flex items-center justify-between">
-                <div className="flex-1 flex justify-between sm:hidden">
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Previous
-                  </button>
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Next
-                  </button>
-                </div>
-                <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-sm text-gray-700">
-                      Showing <span className="font-medium">{(currentPage - 1) * postsPerPage + 1}</span> to{' '}
-                      <span className="font-medium">
-                        {Math.min(currentPage * postsPerPage, totalPosts)}
-                      </span>{' '}
-                      of <span className="font-medium">{totalPosts}</span> results
-                    </p>
-                  </div>
-                  <div>
-                    <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                      <button
-                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                        disabled={currentPage === 1}
-                        className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <span className="sr-only">Previous</span>
-                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                      {[...Array(totalPages)].map((_, index) => (
-                        <button
-                          key={index + 1}
-                          onClick={() => setCurrentPage(index + 1)}
-                          className={`relative inline-flex items-center px-4 py-2 border text-sm font-medium ${
-                            currentPage === index + 1
-                              ? 'z-10 bg-blue-50 border-blue-500 text-blue-600'
-                              : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
-                          }`}
-                        >
-                          {index + 1}
-                        </button>
-                      ))}
-                      <button
-                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                        disabled={currentPage === totalPages}
-                        className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <span className="sr-only">Next</span>
-                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </nav>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
+          <div className="text-center text-red-600">{error}</div>
         </div>
       </div>
-    </div>
+    );
+  }
+
+  const featuredPost = posts[0];
+  const regularPosts = posts.slice(1);
+
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero Section with Featured Post */}
+      {featuredPost && (
+        <section className="relative bg-gray-900 text-white">
+          <div className="absolute inset-0">
+            <img
+              src={featuredPost.image}
+              alt={featuredPost.title}
+              className="w-full h-full object-cover opacity-50"
+            />
+          </div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div className="max-w-3xl">
+              <span className="inline-flex items-center rounded-full bg-blue-500 px-3 py-1 text-sm font-medium text-white mb-4">
+                {featuredPost.category.name}
+              </span>
+              <h1 className="text-4xl font-bold mb-4">{featuredPost.title}</h1>
+              <p className="text-xl text-gray-200 mb-6">{featuredPost.excerpt}</p>
+              <div className="flex items-center gap-x-4 text-sm text-gray-200">
+                <div className="flex items-center gap-1">
+                  <UserIcon className="h-4 w-4" />
+                  <span>{featuredPost.author.name}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <CalendarIcon className="h-4 w-4" />
+                  <span>{new Date(featuredPost.createdAt).toLocaleDateString()}</span>
+                </div>
+              </div>
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="inline-block mt-6 px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Read More
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Category Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex space-x-4 overflow-x-auto pb-4">
+          <button
+            onClick={() => setSelectedCategory(null)}
+            className={`px-4 py-2 rounded-full text-sm font-medium ${
+              selectedCategory === null
+                ? 'bg-blue-600 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            All
+          </button>
+          {Array.from(new Set(posts.map(post => post.category.name))).map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-4 py-2 rounded-full text-sm font-medium ${
+                selectedCategory === category
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {regularPosts.map((post) => (
+            <motion.article
+              key={post.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <Link href={`/blog/${post.slug}`}>
+                <div className="aspect-w-16 aspect-h-9">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <span className="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 mb-2">
+                    {post.category.name}
+                  </span>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    <div className="flex items-center gap-1">
+                      <UserIcon className="h-4 w-4" />
+                      <span>{post.author.name}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <CalendarIcon className="h-4 w-4" />
+                      <span>{new Date(post.createdAt).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.article>
+          ))}
+        </div>
+
+        {/* Pagination */}
+        {totalPosts > 9 && (
+          <div className="mt-12 flex justify-center">
+            <nav className="flex items-center gap-2">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Previous
+              </button>
+              <span className="px-4 py-2 text-sm text-gray-700">
+                Page {currentPage} of {Math.ceil(totalPosts / 9)}
+              </span>
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, Math.ceil(totalPosts / 9)))}
+                disabled={currentPage >= Math.ceil(totalPosts / 9)}
+                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
+            </nav>
+          </div>
+        )}
+      </section>
+    </main>
   );
 } 
