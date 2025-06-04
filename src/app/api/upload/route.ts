@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import { cloudinary } from '@/lib/cloudinary';
 
 export async function POST(request: Request) {
   try {
@@ -17,17 +16,28 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Create a unique filename
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-    const filename = `${uniqueSuffix}-${file.name}`;
-    const path = join(process.cwd(), 'public/uploads', filename);
+    // Convert buffer to base64
+    const base64String = buffer.toString('base64');
+    const dataURI = `data:${file.type};base64,${base64String}`;
 
-    // Ensure the uploads directory exists
-    await writeFile(path, buffer);
+    // Upload to Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      cloudinary.uploader.upload(
+        dataURI,
+        {
+          folder: 'marineflow-blog',
+          resource_type: 'auto',
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+    });
 
     // Return the URL of the uploaded file
     return NextResponse.json({
-      url: `/uploads/${filename}`,
+      url: (result as any).secure_url,
     });
   } catch (error) {
     console.error('Error uploading file:', error);
