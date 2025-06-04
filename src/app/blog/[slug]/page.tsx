@@ -131,8 +131,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          className="prose prose-lg max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-strong:font-semibold prose-ul:list-disc prose-ul:pl-6 prose-ol:list-decimal prose-ol:pl-6 prose-li:text-gray-600 prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600 prose-img:rounded-lg prose-img:shadow-md prose-hr:border-gray-200 prose-hr:my-8 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
+          dangerouslySetInnerHTML={{ 
+            __html: post.content
+              .replace(/\n{3,}/g, '\n\n') // Replace 3 or more newlines with 2
+              .replace(/<ul>/g, '<ul class="list-disc pl-6">') // Add bullet point styling
+              .replace(/<ol>/g, '<ol class="list-decimal pl-6">') // Add number styling
+          }} 
         />
 
         {/* Share Section */}
