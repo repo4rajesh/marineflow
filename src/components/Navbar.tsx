@@ -12,6 +12,7 @@ const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Why MarineFlow AI', href: '/why-marineflow' },
   { name: 'Solutions', href: '/solutions' },
+  { name: 'Blog', href: '/blog' },
 ];
 
 export default function Navbar() {
@@ -59,12 +60,12 @@ export default function Navbar() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
+        <div className="hidden lg:flex lg:gap-x-8">
           {navigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors"
+              className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-600 transition-colors whitespace-nowrap"
             >
               {item.name}
             </Link>

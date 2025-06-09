@@ -15,6 +15,7 @@ const navigation = [
   { name: 'About', href: '/about' },
   { name: 'Why MarineFlow AI', href: '/why-marineflow' },
   { name: 'Solutions', href: '/solutions' },
+  { name: 'Blog', href: '/blog' },
 ];
 
 const socialLinks = [
@@ -79,12 +80,12 @@ export default function Footer() {
           {/* Quick Links */}
           <div className="col-span-1">
             <h3 className="text-sm font-semibold text-gradient uppercase tracking-wider">Quick Links</h3>
-            <ul className="mt-4 space-y-3">
+            <ul className="mt-4 space-y-2">
               {navigation.map((item) => (
-                <li key={item.name}>
+                <li key={item.name} className="block">
                   <Link 
                     href={item.href}
-                    className="text-gray-600 hover:text-blue-600 transition-colors text-sm"
+                    className="text-gray-600 hover:text-blue-600 transition-colors text-sm inline-block py-1"
                   >
                     {item.name}
                   </Link>
