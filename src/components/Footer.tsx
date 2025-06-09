@@ -70,6 +70,8 @@ export default function Footer() {
                 width={252}
                 height={46}
                 className="h-12 w-auto"
+                quality={100}
+                style={{ filter: 'none' }}
               />
             </Link>
             <p className="mt-4 text-sm text-gray-600">

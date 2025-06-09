@@ -47,6 +47,8 @@ export default function Navbar() {
               width={252}
               height={46}
               priority
+              quality={100}
+              style={{ filter: 'none' }}
             />
           </Link>
         </div>
@@ -133,6 +135,8 @@ export default function Navbar() {
                 alt="MarineFlow AI"
                 width={252}
                 height={46}
+                quality={100}
+                style={{ filter: 'none' }}
               />
             </Link>
             <button

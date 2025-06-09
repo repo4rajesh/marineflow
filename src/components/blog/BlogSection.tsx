@@ -29,7 +29,7 @@ export default function BlogSection() {
       try {
         const response = await fetch('/api/blog');
         const data = await response.json();
-        setPosts(data.slice(0, 3)); // Get only the first 3 posts for the featured section
+        setPosts(data.posts.slice(0, 3)); // Get only the first 3 posts for the featured section
       } catch (error) {
         console.error('Error fetching posts:', error);
       } finally {
@@ -120,12 +120,31 @@ export default function BlogSection() {
         </div>
         
         <div className="mt-12 text-center">
-          <Link
-            href="/blog"
-            className="inline-flex items-center rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors duration-200"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            View All Posts
-          </Link>
+            <Link
+              href="/blog"
+              className="group relative inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-md hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-300 cursor-pointer"
+            >
+              <span className="relative z-10">View All Posts</span>
+              <svg 
+                className="h-4 w-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M9 5l7 7-7 7" 
+                />
+              </svg>
+              <div className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-500 to-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>
