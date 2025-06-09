@@ -106,9 +106,9 @@ export default function SolutionsPage() {
                 <Link href="/contact" className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors">
                   Book a Demo
                 </Link>
-                <Link href="/case-studies" className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                {/* <Link href="/case-studies" className="inline-flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors">
                   View Case Studies
-                </Link>
+                </Link> */}
               </motion.div>
             </div>
 

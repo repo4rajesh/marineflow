@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Bars3Icon, XMarkIcon, ArrowRightIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon as ArrowRightIconSolidFilled } from '@heroicons/react/24/solid';
 
@@ -33,6 +33,18 @@ export default function Navbar() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [scrolled]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
@@ -108,74 +120,73 @@ export default function Navbar() {
                 <ArrowRightIconSolidFilled className="h-4 w-4" />
               </motion.div>
             </Link>
-            <motion.div 
-              className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-xs text-blue-600 font-medium bg-white px-2 py-1 rounded shadow-sm"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 5 }}
-              transition={{ duration: 0.2 }}
-            >
-            </motion.div>
           </motion.div>
         </div>
       </nav>
-      <motion.div
-        className={`lg:hidden ${mobileMenuOpen ? 'fixed inset-0 z-50' : 'hidden'}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: mobileMenuOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="fixed inset-0 bg-white/80 backdrop-blur-md"></div>
-        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">MarineFlow AI</span>
-              <Image
-                className="h-12 w-auto"
-                src="/images/marineflow-logo-blue.svg"
-                alt="MarineFlow AI"
-                width={252}
-                height={46}
-                quality={100}
-                style={{ filter: 'none' }}
-              />
-            </Link>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="py-6">
-                <Link
-                  href="/contact"
-                  className="group -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 inline-flex items-center gap-2"
+
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '100%' }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 lg:hidden"
+          >
+            <div className="fixed inset-0 bg-white/80 backdrop-blur-md"></div>
+            <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <div className="flex items-center justify-between">
+                <Link href="/" className="-m-1.5 p-1.5">
+                  <span className="sr-only">MarineFlow AI</span>
+                  <Image
+                    className="h-12 w-auto"
+                    src="/images/marineflow-logo-blue.svg"
+                    alt="MarineFlow AI"
+                    width={252}
+                    height={46}
+                    quality={100}
+                    style={{ filter: 'none' }}
+                  />
+                </Link>
+                <button
+                  type="button"
+                  className="-m-2.5 rounded-md p-2.5 text-gray-700"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Book a demo
-                  <ArrowRightIconSolidFilled className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+                  <span className="sr-only">Close menu</span>
+                  <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+              </div>
+              <div className="mt-6 flow-root">
+                <div className="-my-6 divide-y divide-gray-500/10">
+                  <div className="space-y-2 py-6">
+                    {navigation.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                  <div className="py-6">
+                    <Link
+                      href="/contact"
+                      className="group -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-600 transition-all duration-300 inline-flex items-center gap-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Book a demo
+                      <ArrowRightIconSolidFilled className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 } 
