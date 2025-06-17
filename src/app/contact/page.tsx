@@ -106,8 +106,8 @@ export default function ContactPage() {
           phone: formData.phone,
           email: formData.email,
           subject: formData.subject,
-          message: formData.message,
-          'g-recaptcha-response': recaptchaValue
+          message: formData.message
+          //'g-recaptcha-response': recaptchaValue
         })
       });
       
