@@ -224,7 +224,7 @@ export default function PricingPage() {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="bg-white py-20">
+      <section className="bg-white pt-32 pb-20">
         <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
