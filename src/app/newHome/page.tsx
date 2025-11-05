@@ -4,12 +4,15 @@ import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import Navbar from '@/components/Navbar';
 
-export default function Home() {
+export default function NewHome() {
   return (
     <main className="bg-white">
+      <Navbar />
+      
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-blue-100 via-blue-50 to-white pt-20 sm:pt-24 pb-16 sm:pb-20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white pt-20 sm:pt-24 pb-16 sm:pb-20">
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.4] [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
@@ -25,25 +28,20 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight"
+              className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
             >
-              <span className="block">Revolutionize Maritime Operations with</span>
-              <span className="block text-blue-600">AI-Powered Solutions</span>
+              Revolutionize Maritime Operations with{' '}
+              <span className="text-blue-600">AI-Powered Solutions</span>
             </motion.h1>
 
-            <motion.div
+            <motion.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl max-w-3xl mx-auto"
             >
-              <p className="font-semibold text-gray-900 mb-4">
-                Error Rate: Slashed by 90%. Complexity: Fully Automated.
-              </p>
-              <p>
-                Say goodbye to spreadsheets and friction. MarineFlow AI provides the first complete automation platform for dry bulk and tanker operations. Our intelligent engine processes and validates every clause and term—including the CP, Addendum, and SOF documents—to generate flawless laytime calculations and optimized demurrage claims. Achieve total digital command and unlock next-level efficiency today.
-              </p>
-            </motion.div>
+              Transform your dry bulk and tanker vessel operations with intelligent automation for demurrage claims, laytime calculations, and complete digital transformation. Reduce manual errors by 90% and increase operational efficiency.
+            </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -71,14 +69,14 @@ export default function Home() {
       </section>
 
       {/* Three Feature Cards Section */}
-      <section className="py-20 bg-slate-50">
+      <section className="py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center mb-16">
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-gray-900 whitespace-nowrap"
+              className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
               Complete AI-Powered Maritime Solutions
             </motion.h2>
@@ -134,12 +132,53 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Card 2: AI Summary */}
+            {/* Card 2: Web-Based Manual Laytime Calculator */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
+              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
+            >
+              <div className="mb-6">
+                <div className="w-16 h-16 bg-amber-100 rounded-lg flex items-center justify-center">
+                  <svg className="w-10 h-10 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Web-Based Manual Laytime Calculator</h3>
+              <p className="text-gray-600 mb-6">Intuitive calculator for manual laytime calculations with built-in industry standard formulas and validations.</p>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-gray-600">Industry standards</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-gray-600">Real-time validation</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-gray-600">Export capabilities</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-gray-600">Audit trail</span>
+                </li>
+              </ul>
+              <Link href="/features" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
+                Learn More
+                <ArrowRightIcon className="h-4 w-4" />
+              </Link>
+            </motion.div>
+
+            {/* Card 3: AI Summary */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
             >
               <div className="mb-6">
@@ -175,12 +214,12 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Card 3: AI Powered Copilot */}
+            {/* Card 4: AI Powered Copilot */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
             >
               <div className="mb-6">
@@ -216,12 +255,12 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Card 4: AI Powered Knowledge Base */}
+            {/* Card 5: AI Powered Knowledge Base */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.4 }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
             >
               <div className="mb-6">
@@ -257,12 +296,12 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Card 5: AI Powered Vessel Certificates Management */}
+            {/* Card 6: AI Powered Vessel Certificates Management */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              transition={{ delay: 0.5 }}
               className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
             >
               <div className="mb-6">
@@ -297,53 +336,12 @@ export default function Home() {
                 <ArrowRightIcon className="h-4 w-4" />
               </Link>
             </motion.div>
-
-            {/* Card 6: Invoice Generation and Tracking */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100"
-            >
-              <div className="mb-6">
-                <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <svg className="w-10 h-10 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2V7z" />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Invoice Generation and Tracking</h3>
-              <p className="text-gray-600 mb-6">Automate invoice creation, processing, and tracking with intelligent document management and real-time status updates.</p>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span className="text-gray-600">Automated invoice generation</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span className="text-gray-600">Real-time tracking</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span className="text-gray-600">Status monitoring</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
-                  <span className="text-gray-600">Payment reconciliation</span>
-                </li>
-              </ul>
-              <Link href="/features" className="text-blue-600 font-semibold hover:text-blue-700 inline-flex items-center gap-1">
-                Learn More
-                <ArrowRightIcon className="h-4 w-4" />
-              </Link>
-            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-4">
@@ -427,7 +425,7 @@ export default function Home() {
       </section>
 
       {/* Featured Downloads Section */}
-      <section className="py-20 bg-blue-50">
+      <section className="py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-12">
             Featured Downloads
